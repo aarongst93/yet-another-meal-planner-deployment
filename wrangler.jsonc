@@ -1,21 +1,30 @@
 {
-  // Code-level config (main, compatibility_*, triggers, observability) is merged in
-  // from the upstream Worker at deploy — set only your own values here.
+  // Code-level config is merged from the upstream Worker during deployment.
   "name": "yamp",
-  "workers_dev": true,            // *.workers.dev URL; set false + "routes" for a custom domain
-  // Cloudflare Access gate for the /admin panel (optional; unset → /admin 404).
-  "vars": {
-    "ACCESS_TEAM_DOMAIN": "<your-team>.cloudflareaccess.com",
-    "ACCESS_AUD": "<access-app-aud>"
-  },
-  // Id-less → auto-provisioned on first deploy and pinned back here.
+  "workers_dev": true,
+
+  // Existing KV namespaces created during the initial deployment.
   "kv_namespaces": [
-    { "binding": "KROGER_KV" },
-    { "binding": "TENANT_KV" },
-    { "binding": "OAUTH_KV" }
+    {
+      "binding": "KROGER_KV",
+      "id": "abfa8a93a67d4fcb85578316f096dc52"
+    },
+    {
+      "binding": "TENANT_KV",
+      "id": "292cb48cbdd94251a3f0767505e05d14"
+    },
+    {
+      "binding": "OAUTH_KV",
+      "id": "4726778930764bdd860bb20827e13149"
+    }
   ],
-  // Id-less → provisioned on first deploy and pinned back here.
+
+  // Wrangler has already created this database and can resolve it by name.
   "d1_databases": [
-    { "binding": "DB", "database_name": "yamp", "migrations_dir": "migrations/d1" }
+    {
+      "binding": "DB",
+      "database_name": "yamp",
+      "migrations_dir": "migrations/d1"
+    }
   ]
 }
